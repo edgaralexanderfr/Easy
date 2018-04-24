@@ -13,22 +13,8 @@ public class Hero : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		int speed = 1000;
-
-		if (Input.GetKeyUp("up")) {
-			this.TorsoArmature.transform.Rotate(Vector3.left * Time.deltaTime * speed);
-		}
-
-		if (Input.GetKeyUp("down")) {
-			this.TorsoArmature.transform.Rotate(Vector3.right * Time.deltaTime * speed);
-		}
-
-		if (Input.GetKeyUp("left")) {
-			this.TorsoArmature.transform.Rotate(Vector3.down * Time.deltaTime * speed, Space.World);
-		}
-
-		if (Input.GetKeyUp("right")) {
-			this.TorsoArmature.transform.Rotate(Vector3.up * Time.deltaTime * speed, Space.World);
-		}
+		int speed = 10;
+		this.TorsoArmature.transform.Rotate(Vector3.up * Time.deltaTime * speed * Input.GetAxis("Horizontal"), Space.World);
+		this.TorsoArmature.transform.Rotate(Vector3.left * Time.deltaTime * speed * Input.GetAxis("Vertical"));
 	}
 }
