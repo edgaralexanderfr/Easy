@@ -14,7 +14,6 @@ public class Hero : MonoBehaviour {
 	
 	private Animator HeroAnimator;
 	private GameObject TorsoArmature;
-	private Vector3 MoveDirection;
 	private bool PlayingWalkAnimation = false;
 
 	// Use this for initialization
@@ -28,32 +27,28 @@ public class Hero : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.TorsoArmature.transform.Rotate(Vector3.up * Time.deltaTime * AIM_SPEED * Input.GetAxis("Horizontal"), Space.World);
+		this.transform.Rotate(Vector3.up * Time.deltaTime * AIM_SPEED * Input.GetAxis("Horizontal"));
 		this.TorsoArmature.transform.Rotate(Vector3.left * Time.deltaTime * AIM_SPEED * Input.GetAxis("Vertical"));
-
-		this.MoveDirection.x = 0.0f;
-		this.MoveDirection.y = this.TorsoArmature.transform.rotation.eulerAngles.y;
-		this.MoveDirection.z = 0.0f;
 
 		bool moving = false;
 		
 		if (Input.GetKey(KeyCode.W)) {
-			this.transform.Translate(Quaternion.Euler(this.MoveDirection) * Vector3.forward * Time.deltaTime * MOVE_SPEED);
+			this.transform.Translate(Vector3.forward * Time.deltaTime * MOVE_SPEED);
 			moving = true;
 		}
 
 		if (Input.GetKey(KeyCode.S)) {
-			this.transform.Translate(Quaternion.Euler(this.MoveDirection) * Vector3.back * Time.deltaTime * MOVE_SPEED);
+			this.transform.Translate(Vector3.back * Time.deltaTime * MOVE_SPEED);
 			moving = true;
 		}
 
 		if (Input.GetKey(KeyCode.A)) {
-			this.transform.Translate(Quaternion.Euler(this.MoveDirection) * Vector3.left * Time.deltaTime * MOVE_SPEED);
+			this.transform.Translate(Vector3.left * Time.deltaTime * MOVE_SPEED);
 			moving = true;
 		}
 
 		if (Input.GetKey(KeyCode.D)) {
-			this.transform.Translate(Quaternion.Euler(this.MoveDirection) * Vector3.right * Time.deltaTime * MOVE_SPEED);
+			this.transform.Translate(Vector3.right * Time.deltaTime * MOVE_SPEED);
 			moving = true;
 		}
 
