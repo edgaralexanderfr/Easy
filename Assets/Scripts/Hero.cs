@@ -6,6 +6,7 @@ public class Hero : MonoBehaviour {
 
 	const float AIM_SPEED = 10.0f;
 	const float MOVE_SPEED = 20.0f;
+	const float JUMP_FORCE = 75000.0f;
 
 	[SerializeField]
 	private Camera MainCamera;
@@ -13,12 +14,25 @@ public class Hero : MonoBehaviour {
 	private Camera ThirdPersonCamera;
 	
 	private Animator HeroAnimator;
+	private Rigidbody HeroRigidbody;
 	private GameObject TorsoArmature;
 	private bool PlayingWalkAnimation = false;
+	private bool jumping = false;
+
+	public bool Jumping {
+		get {
+			return this.jumping;
+		}
+
+		set {
+			this.jumping = value;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
 		this.HeroAnimator = this.GetComponent<Animator>();
+		this.HeroRigidbody = this.GetComponent<Rigidbody>();
 		this.TorsoArmature = GameObject.Find("TorsoArmature");
 
 		this.MainCamera.enabled = true;
@@ -55,6 +69,11 @@ public class Hero : MonoBehaviour {
 		if (Input.GetKeyUp(KeyCode.F7)) {
 			this.MainCamera.enabled = !this.MainCamera.enabled;
 			this.ThirdPersonCamera.enabled = !this.ThirdPersonCamera.enabled;
+		}
+
+		if (Input.GetKeyUp(KeyCode.Space) && !this.jumping) {
+			this.jumping = true;
+			this.HeroRigidbody.AddForce(Vector3.up * JUMP_FORCE);
 		}
 
 		if (moving) {
